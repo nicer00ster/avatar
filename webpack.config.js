@@ -1,22 +1,21 @@
-var webpack = require('webpack');
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-// use resolve() to normalize paths between unix/windows environments
-var path = require('path');
+const webpack = require('webpack');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const BundleTracker = require('webpack-bundle-tracker');
+const path = require('path');
 
 module.exports = {
-    mode: 'development',
-    devtool: 'source-map',
-    context: __dirname + '/frontend',
     entry: {
-      javascript: './App.js',
-      html: './index.html'
+      app: './frontend/index.js',
+      html: './frontend/index.html'
     },
 
     output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: '[name].min.js'
+      filename: '[name].min.js',
+      path: path.resolve(__dirname, 'static/build/'),
     },
 
+    // Uncomment this for production
     optimization: {
         splitChunks: {
             cacheGroups: {
@@ -30,35 +29,54 @@ module.exports = {
     },
 
     module: {
-        rules: [
-            // {
-            //     test: /\.css$/,
-            //     loader: 'style!css'
-            // },
-            {
-                test: /\.html$/,
-                use: 'html-loader'
+      rules: [
+        {
+            test: /\.html$/,
+            use: 'html-loader'
+        },
+        {
+          test: /\.jsx?$/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                'es2015',
+                'react'
+              ],
             },
-            {
-                test: /^(?!.*\.{test,min}\.js$).*\.js$/,
-                exclude: /(node_modules)/,
-                use: {
-                    loader: 'babel-loader'
-                }
+          },
+          exclude: /node_modules/,
+        },
+        {
+          test: /\.js$/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                'es2015',
+                'react',
+              ],
             },
-        ]
+          },
+          exclude: /node_modules/,
+        },
+        {
+          test: /.css$/,
+          use: [
+            'style-loader',
+            'css-loader',
+          ],
+        },
+      ],
     },
 
     plugins: [
-        // ensure that we get a production build of any dependencies
-        // this is primarily for React, where this removes 179KB from the bundle
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': '"production"'
-        }),
-        new HtmlWebPackPlugin({
-          template: './index.html',
-          filename: './index.html'
-        })
+      new CleanWebpackPlugin(['build']),
+      new HtmlWebPackPlugin({
+        template: './avatar/templates/index.html',
+        filename: './index.html'
+      }),
+      new BundleTracker({ filename: './webpack-stats.json' })
     ]
 
 };

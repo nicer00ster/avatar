@@ -1,0 +1,7 @@
+node_modules
+package-lock.json
+avatar/Include
+avatar/Lib
+avatar/Scripts
+avatar/tcl
+avatar/pip-selfcheck.json

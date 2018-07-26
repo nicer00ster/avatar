@@ -1,10 +1,12 @@
+{% load render_bundle from webpack_loader %}
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Avatar</title>
   </head>
-  <body>
-    <p>hey guys</p>
+  <body id="root">
+    {% render_bundle 'bundle' 'js' %}
+    {% render_bundle 'app' 'js' %}
   </body>
 </html>

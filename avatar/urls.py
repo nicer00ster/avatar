@@ -21,7 +21,8 @@ router.register(r'users', UserViewSet)
 
 urlpatterns = [
     url(r'^$', generic.TemplateView.as_view(template_name='index.html')),
+    url(r'login/', generic.TemplateView.as_view(template_name='index.html')),
     url(r'admin/', admin.site.urls),
     url(r'^api/v1/', include(router.urls)),
-    url(r'api-', include('rest_framework.urls'))
+    url(r'api-', include('rest_framework.urls')),
 ]
