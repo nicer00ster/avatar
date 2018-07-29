@@ -1,7 +1,8 @@
-node_modules
-package-lock.json
-avatar/Include
-avatar/Lib
-avatar/Scripts
-avatar/tcl
-avatar/pip-selfcheck.json
+avatar/node_modules
+avatar/frontend/package-lock.json
+avatar/frontend/node_modules
+Include
+Lib
+Scripts
+tcl
+pip-selfcheck.json
