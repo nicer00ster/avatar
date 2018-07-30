@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { notes, auth } from "../actions";
+import Nav from './Nav';
 
 class Note extends React.Component {
   state = {
@@ -11,26 +12,30 @@ class Note extends React.Component {
       this.props.fetchNotes();
   }
   resetForm = () => {
-    this.setState({text: "", updateNoteId: null});
+    this.setState({ text: "", updateNoteId: null });
   }
 
   selectForEdit = (id) => {
     let note = this.props.notes[id];
-    this.setState({text: note.text, updateNoteId: id});
+    this.setState({ text: note.text, updateNoteId: id });
   }
 
   submitNote = (e) => {
+    const { updateNoteId, text } = this.state;
+    const { addNote, updateNote } = this.props;
     e.preventDefault();
-    if (this.state.updateNoteId === null) {
-      this.props.addNote(this.state.text).then(this.resetForm)
+    if (updateNoteId === null) {
+      addNote(text).then(this.resetForm)
     } else {
-      this.props.updateNote(this.state.updateNoteId, this.state.text).then(this.resetForm);
+      updateNote(updateNoteId, text).then(this.resetForm);
     }
     this.resetForm();
   }
   render() {
     return (
-      <div>
+      <React.Fragment>
+      <Nav />
+      <main className="landing">
           <h2>Welcome to PonyNote!</h2>
           <hr />
           <div style={{textAlign: "right"}}>
@@ -59,7 +64,8 @@ class Note extends React.Component {
                   ))}
               </tbody>
           </table>
-      </div>
+      </main>
+    </React.Fragment>
     )
   }
 }

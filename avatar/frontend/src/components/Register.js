@@ -11,8 +11,9 @@ class Login extends React.Component {
   }
 
   onSubmit = e => {
+    const { username, password } = this.state;
     e.preventDefault();
-    this.props.register(this.state.username, this.state.password);
+    this.props.register(username, password);
   }
 
   render() {
@@ -34,13 +35,13 @@ class Login extends React.Component {
             <label htmlFor="username">Username</label>
             <input
               type="text" id="username"
-              onChange={e => this.setState({username: e.target.value})} />
+              onChange={e => this.setState({ username: e.target.value })} />
           </p>
           <p>
             <label htmlFor="password">Password</label>
             <input
               type="password" id="password"
-              onChange={e => this.setState({password: e.target.value})} />
+              onChange={e => this.setState({ password: e.target.value })} />
           </p>
           <p>
             <button type="submit">Register</button>

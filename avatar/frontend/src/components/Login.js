@@ -9,38 +9,40 @@ class Login extends React.Component {
     username: "",
     password: ""
   }
-
   onSubmit = e => {
+    const { username, password } = this.state;
     e.preventDefault();
-    this.props.login(this.state.username, this.state.password);
+    this.props.login(username, password);
   }
 
   render() {
-    if(this.props.isAuthenticated) {
+    const { isAuthenticated, errors } = this.props;
+    if(isAuthenticated) {
       return <Redirect to="/" />
     }
     return (
       <form onSubmit={this.onSubmit}>
         <fieldset>
           <legend>Login</legend>
-          {this.props.errors.length > 0 && (
-            <ul>
-              {this.props.errors.map(error => (
-                <li key={error.field}>{error.message}</li>
+          {errors
+            ? <ul>
+              {errors.map(err => (
+                <li key={err.field}>{err.message}</li>
               ))}
-            </ul>
-          )}
+              </ul>
+            : null
+          }
           <p>
             <label htmlFor="username">Username</label>
             <input
               type="text" id="username"
-              onChange={e => this.setState({username: e.target.value})} />
+              onChange={e => this.setState({ username: e.target.value })} />
           </p>
           <p>
             <label htmlFor="password">Password</label>
             <input
               type="password" id="password"
-              onChange={e => this.setState({password: e.target.value})} />
+              onChange={e => this.setState({ password: e.target.value })} />
           </p>
           <p>
             <button type="submit">Login</button>
@@ -59,7 +61,7 @@ const mapStateToProps = state => {
   let errors = [];
   if (state.auth.errors) {
     errors = Object.keys(state.auth.errors).map(field => {
-      return {field, message: state.auth.errors[field]};
+      return { field, message: state.auth.errors[field] };
     });
   }
   return {
