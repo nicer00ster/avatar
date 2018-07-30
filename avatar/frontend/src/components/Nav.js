@@ -1,15 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class Nav extends React.Component {
   render() {
     return (
       <header className="nav">
-        <a href="#">Logo</a>
+        <Link to="/">Logo</Link>
         <nav>
-          <a href="#">Dashboard</a>
-          <a href="#">Search Restaurants</a>
-          <a href="#">Profile</a>
-          <a href="#">Upgrade</a>
+          <Link to="/">Dashboard</Link>
+          <Link to="/">Restaurants</Link>
+          <Link to="/profile">Profile</Link>
+          <Link to="/">Upgrade</Link>
         </nav>
         <div>
           <div className="nav__search">

@@ -17,41 +17,34 @@ class Login extends React.Component {
   }
 
   render() {
+    const { errors } = this.props;
     if (this.props.isAuthenticated) {
       return <Redirect to="/" />
     }
     return (
-      <form onSubmit={this.onSubmit}>
-        <fieldset>
-          <legend>Register</legend>
-          {this.props.errors.length > 0 && (
-            <ul>
-              {this.props.errors.map(error => (
-                <li key={error.field}>{error.message}</li>
+      <form className="_register" onSubmit={this.onSubmit}>
+        <h2>Create an account</h2>
+          {/* {errors
+            ? <ul>
+              {errors.map(err => (
+                <li key={err.field}>{err.message}</li>
               ))}
             </ul>
-          )}
-          <p>
-            <label htmlFor="username">Username</label>
-            <input
-              type="text" id="username"
-              onChange={e => this.setState({ username: e.target.value })} />
-          </p>
-          <p>
-            <label htmlFor="password">Password</label>
-            <input
-              type="password" id="password"
-              onChange={e => this.setState({ password: e.target.value })} />
-          </p>
-          <p>
+            : null
+          } */}
+          <input
+            type="text"
+            placeholder="Username"
+            onChange={e => this.setState({ username: e.target.value })} />
+          <input
+            type="password" id="password"
+            placeholder="Password"
+            onChange={e => this.setState({ password: e.target.value })} />
             <button type="submit">Register</button>
-          </p>
-
-          <p>
-            Already have an account? <Link to="/login">Login</Link>
-          </p>
-        </fieldset>
-      </form>
+          <span>
+            Already have an account? <Link to="/login">Login!</Link>
+          </span>
+        </form>
     )
   }
 }

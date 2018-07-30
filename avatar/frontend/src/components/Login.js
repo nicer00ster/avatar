@@ -21,38 +21,23 @@ class Login extends React.Component {
       return <Redirect to="/" />
     }
     return (
-      <form onSubmit={this.onSubmit}>
-        <fieldset>
-          <legend>Login</legend>
-          {errors
-            ? <ul>
-              {errors.map(err => (
-                <li key={err.field}>{err.message}</li>
-              ))}
-              </ul>
-            : null
-          }
-          <p>
-            <label htmlFor="username">Username</label>
+      <form className="_login" onSubmit={this.onSubmit}>
+          <h2>Avatar</h2>
+            <h4>Log in to find a date!</h4>
             <input
-              type="text" id="username"
+              type="text"
+              placeholder="Username"
               onChange={e => this.setState({ username: e.target.value })} />
-          </p>
-          <p>
-            <label htmlFor="password">Password</label>
             <input
               type="password" id="password"
+              placeholder="Password"
               onChange={e => this.setState({ password: e.target.value })} />
-          </p>
-          <p>
             <button type="submit">Login</button>
-          </p>
-
-          <p>
-            Don't have an account? <Link to="/register">Register</Link>
-          </p>
-        </fieldset>
-      </form>
+            <div>
+              Don't have an account?
+            </div>
+            <Link to="/register">Register here!</Link>
+          </form>
     )
   }
 }

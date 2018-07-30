@@ -36,7 +36,6 @@ export const loadUser = () => {
     }
 }
 
-
 export const login = (username, password) => {
   return (dispatch, getState) => {
     let headers = { "Content-Type": "application/json" };

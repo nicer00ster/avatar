@@ -2,10 +2,11 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from "react-redux";
 
-import Note from "./components/Note";
+import Main from "./components/Main";
 import NotFound from "./components/NotFound";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import Profile from "./components/Profile";
 import Loading from './components/Loading';
 
 import { auth } from "./actions";
@@ -16,7 +17,7 @@ class Root extends React.Component {
     this.props.loadUser();
   }
 
-  Private = ({component: Component, ...rest}) => {
+  Private = ({ component: Component, ...rest }) => {
     return <Route {...rest} render={props => {
       if (this.props.auth.isLoading) {
         return <Loading />;
@@ -33,7 +34,8 @@ class Root extends React.Component {
     return (
       <Router>
         <Switch>
-          <Private exact path="/" component={Note} />
+          <Private exact path="/" component={Main} />
+          <Private exact path="/profile" component={Profile} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <Route component={NotFound} />
